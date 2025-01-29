@@ -41,7 +41,6 @@ interface LuksoProfileProps {
 
 export function LuksoProfile({ address = DEFAULT_ADDRESS }: LuksoProfileProps) {
     const [hasAccess] = useState(false);
-    const [walletAddress, setWalletAddress] = useState<string | null>(null);
     const { setIsSearching, isSearching } = useUpProvider();
     useEffect(() => {
         if (isSearching) setIsSearching(false);
