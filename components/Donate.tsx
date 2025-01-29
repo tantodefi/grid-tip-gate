@@ -35,7 +35,7 @@ export function Donate({ selectedAddress }: DonateProps) {
     useUpProvider();
   const [amount, setAmount] = useState<number>(minAmount);
   const [error, setError] = useState('');
-  const recipientAddress = selectedAddress || contextAccounts[0];
+  const recipientAddress = selectedAddress; // removed || contextAccounts[0]
 
   const validateAmount = useCallback((value: number) => {
     if (value < minAmount) {
