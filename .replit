@@ -8,3 +8,7 @@ channel = "stable-24_05"
 build = ["sh", "-c", "next build"]
 deploymentTarget = "static"
 publicDir = "public"
+
+[[ports]]
+localPort = 3000
+externalPort = 80
