@@ -42,8 +42,6 @@ interface LuksoProfileProps {
 
 export function LuksoProfile({ address = DEFAULT_ADDRESS }: LuksoProfileProps) {
     const [hasAccess, setHasAccess] = useState(false);
-    const [donationAmount, setDonationAmount] = useState(MINIMUM_DONATION);
-    const [isProcessing, setIsProcessing] = useState(false);
     const [walletAddress, setWalletAddress] = useState<string | null>(null);
     const { setIsSearching } = useUpProvider();
     const [profileData, setProfileData] = useState<{

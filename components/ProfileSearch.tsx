@@ -17,6 +17,7 @@
 'use client';
 
 import { useCallback, useState } from 'react';
+import Image from 'next/image';
 import { request, gql } from 'graphql-request';
 import makeBlockie from 'ethereum-blockies-base64';
 import { useUpProvider } from './upProvider';
@@ -120,10 +121,12 @@ export function ProfileSearch({ onSelectAddress }: SearchProps) {
   const getProfileImage = (profile: Profile) => {
     if (profile.profileImages && profile.profileImages.length > 0) {
       return (
-        <img
+        <Image
           src={profile.profileImages[0].src}
           alt={`${profile.name || profile.id} avatar`}
-          className="mt-1 w-10 h-10 rounded-full flex-shrink-0 object-cover"
+          width={40}
+          height={40}
+          className="mt-1 rounded-full flex-shrink-0 object-cover"
           onError={(e) => {
             // Fallback to blockie if image fails to load
             e.currentTarget.src = makeBlockie(profile.id);
