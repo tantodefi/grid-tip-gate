@@ -19,7 +19,6 @@ import { useEffect, useState } from 'react';
 import { ERC725 } from '@erc725/erc725.js';
 import erc725schema from '@erc725/erc725.js/schemas/LSP3ProfileMetadata.json';
 import { useUpProvider } from './upProvider';
-import { ethers } from 'ethers';
 
 // Add TypeScript declarations for LUKSO
 declare global {
@@ -41,7 +40,7 @@ interface LuksoProfileProps {
 }
 
 export function LuksoProfile({ address = DEFAULT_ADDRESS }: LuksoProfileProps) {
-    const [hasAccess, setHasAccess] = useState(false);
+    const [hasAccess] = useState(false);
     const [walletAddress, setWalletAddress] = useState<string | null>(null);
     const { setIsSearching, isSearching } = useUpProvider();
     useEffect(() => {
@@ -120,27 +119,7 @@ export function LuksoProfile({ address = DEFAULT_ADDRESS }: LuksoProfileProps) {
         fetchProfileImage();
     }, [address]);
 
-    const connectWallet = async () => {
-        try {
-            // Check if UP Browser Extension is installed
-            if (typeof window.lukso === 'undefined') {
-                alert('Please install the Universal Profile Browser Extension');
-                return null;
-            }
-
-            // Request account access
-            const accounts = await window.lukso.request({ method: 'eth_requestAccounts' });
-            if (accounts && accounts.length > 0) {
-                setWalletAddress(accounts[0]);
-                return accounts[0];
-            }
-            return null;
-        } catch (error) {
-            console.error('Error connecting wallet:', error);
-            alert('Failed to connect wallet. Please try again.');
-            return null;
-        }
-    };
+    
 
     // Donation handling moved to Donate component
 
