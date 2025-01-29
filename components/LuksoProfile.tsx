@@ -161,7 +161,7 @@ export function LuksoProfile({ address = DEFAULT_ADDRESS }: LuksoProfileProps) {
                             size="small"
                             class={isProcessing ? 'opacity-50 cursor-not-allowed' : ''}
                         >
-                            {isProcessing ? 'Processing...' : walletAddress ? 'Donate' : 'Connect & Donate'}
+                            {isProcessing ? "Processing..." : walletAddress ? "Donate" : "Connect & Donate"}
                         </lukso-button>
                     </div> */}
                     {walletAddress && (
