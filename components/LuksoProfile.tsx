@@ -142,50 +142,7 @@ export function LuksoProfile({ address = DEFAULT_ADDRESS }: LuksoProfileProps) {
         }
     };
 
-    const handleDonation = async () => {
-        if (donationAmount < MINIMUM_DONATION) {
-            alert(`Minimum donation amount is ${MINIMUM_DONATION} LYX`);
-            return;
-        }
-
-        setIsProcessing(true);
-        
-        try {
-            // Connect wallet if not already connected
-            const account = walletAddress || await connectWallet();
-            if (!account) {
-                setIsProcessing(false);
-                return;
-            }
-
-            // Create transaction parameters
-            const transactionParameters = {
-                to: DEFAULT_ADDRESS, // Recipient address
-                from: account, // Sender address
-                value: ethers.parseEther(donationAmount.toString()).toString(), // Convert LYX amount to Wei
-            };
-
-            // Send transaction
-            const txHash = await window.lukso!.request({
-                method: 'eth_sendTransaction',
-                params: [transactionParameters],
-            });
-
-            console.log('Transaction sent:', txHash);
-
-            // Create a provider to wait for transaction confirmation
-            const provider = new ethers.JsonRpcProvider(RPC_ENDPOINT);
-            await provider.waitForTransaction(txHash);
-
-            console.log('Transaction confirmed!');
-            setHasAccess(true);
-        } catch (error: any) {
-            console.error('Error processing donation:', error);
-            alert(error.message || 'Failed to process donation. Please try again.');
-        } finally {
-            setIsProcessing(false);
-        }
-    };
+    // Donation handling moved to Donate component
 
     const ProtectedContent = () => (
         <div className="mt-8 p-6 bg-white rounded-lg shadow-lg max-w-2xl">
