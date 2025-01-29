@@ -23,7 +23,7 @@ import { parseUnits } from 'viem';
 import { useUpProvider } from './upProvider';
 import { LuksoProfile } from './LuksoProfile';
 
-const minAmount = 1.0;
+const minAmount = 0.42;
 const maxAmount = 1000;
 
 interface DonateProps {
