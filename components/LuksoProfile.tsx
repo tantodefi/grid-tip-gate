@@ -41,6 +41,7 @@ interface LuksoProfileProps {
 
 export function LuksoProfile({ address = DEFAULT_ADDRESS }: LuksoProfileProps) {
     const [hasAccess] = useState(false);
+    const [walletAddress, setWalletAddress] = useState<string | null>(null);
     const { setIsSearching, isSearching } = useUpProvider();
     useEffect(() => {
         if (isSearching) setIsSearching(false);
@@ -164,7 +165,7 @@ export function LuksoProfile({ address = DEFAULT_ADDRESS }: LuksoProfileProps) {
                             {isProcessing ? "Processing..." : walletAddress ? "Donate" : "Connect & Donate"}
                         </lukso-button>
                     </div> */}
-                    {walletAddress && (
+                    {walletAddress !== null && (
                         <p className="text-sm text-gray-600">Connected: {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}</p>
                     )}
                     <lukso-card
