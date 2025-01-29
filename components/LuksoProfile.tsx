@@ -43,7 +43,10 @@ interface LuksoProfileProps {
 export function LuksoProfile({ address = DEFAULT_ADDRESS }: LuksoProfileProps) {
     const [hasAccess, setHasAccess] = useState(false);
     const [walletAddress, setWalletAddress] = useState<string | null>(null);
-    const { setIsSearching } = useUpProvider();
+    const { setIsSearching, isSearching } = useUpProvider();
+    useEffect(() => {
+        if (isSearching) setIsSearching(false);
+    }, [isSearching, setIsSearching]);
     const [profileData, setProfileData] = useState<{
         imgUrl: string;
         fullName: string;
@@ -190,7 +193,7 @@ export function LuksoProfile({ address = DEFAULT_ADDRESS }: LuksoProfileProps) {
             <p className="text-lg mb-4">Thank you for your support! Here's your exclusive content:</p>
             <div className="prose">
                 <h3 className="text-xl font-semibold mb-2">Special Access Content</h3>
-                <p>This is some exclusive content that only appears after a successful donation.</p>
+                <p>This is some exclusive content that only appears after a successful donation. Your access has been granted!</p>
                 <ul className="list-disc pl-5 mt-2">
                     <li>Premium feature 1</li>
                     <li>Exclusive content 2</li>
