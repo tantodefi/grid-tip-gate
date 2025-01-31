@@ -37,10 +37,10 @@ const MINIMUM_DONATION = 0.42;
 
 interface LuksoProfileProps {
     address?: string;
+    hasAccess?: boolean;
 }
 
-export function LuksoProfile({ address: _ }: LuksoProfileProps) {
-    const [hasAccess] = useState(false);
+export function LuksoProfile({ address: _, hasAccess = false }: LuksoProfileProps) {
     const [walletAddress, setWalletAddress] = useState<string | null>(null);
     const { setIsSearching, isSearching } = useUpProvider();
     useEffect(() => {

@@ -62,6 +62,7 @@ export function Donate({ selectedAddress }: DonateProps) {
   const [recipientAddress, setRecipientAddress] = useState<`0x${string}` | null | undefined>(selectedAddress);
   const [whitelistedUsers, setWhitelistedUsers] = useState<WhitelistedUser[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [hasAccess, setHasAccess] = useState(false);
 
   useEffect(() => {
     setRecipientAddress(selectedAddress);
@@ -122,7 +123,7 @@ export function Donate({ selectedAddress }: DonateProps) {
         value: parseUnits(amount.toString(), 18),
       });
 
-      // After successful transaction, add donor to whitelist
+      // After successful transaction, add donor to whitelist and grant access
       const donorProfile = await fetchProfileData(accounts[0]);
       setWhitelistedUsers(prev => {
         // Check if user is already whitelisted
@@ -131,6 +132,7 @@ export function Donate({ selectedAddress }: DonateProps) {
         }
         return prev;
       });
+      setHasAccess(true);
     } catch (error) {
       console.error('Transaction failed:', error);
       setError('Transaction failed. Please try again.');
@@ -151,7 +153,7 @@ export function Donate({ selectedAddress }: DonateProps) {
     <div className="w-full bg-white/80 backdrop-blur-md rounded-2xl p-6">
       <div className="rounded-xl">
         <div className="flex flex-row items-center justify-center gap-2">
-          <LuksoProfile address={effectiveRecipientAddress} />
+          <LuksoProfile address={effectiveRecipientAddress} hasAccess={hasAccess} />
         </div>
       </div>
 
