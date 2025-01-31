@@ -35,7 +35,13 @@ export function Donate({ selectedAddress }: DonateProps) {
     useUpProvider();
   const [amount, setAmount] = useState<number>(minAmount);
   const [error, setError] = useState('');
-  const recipientAddress = selectedAddress || contextAccounts[0]; // 
+  const [recipientAddress, setRecipientAddress] = useState<`0x${string}` | null | undefined>(selectedAddress);
+
+  useEffect(() => {
+    setRecipientAddress(selectedAddress);
+  }, [selectedAddress]);
+
+  const effectiveRecipientAddress = recipientAddress || contextAccounts[0];
 
   const validateAmount = useCallback((value: number) => {
     if (value < minAmount) {
@@ -53,10 +59,10 @@ export function Donate({ selectedAddress }: DonateProps) {
   }, [amount, validateAmount]);
 
   const sendToken = async () => {
-    if (!client || !walletConnected || !amount) return;
+    if (!client || !walletConnected || !amount || !effectiveRecipientAddress) return;
     await client.sendTransaction({
       account: accounts[0] as `0x${string}`,
-      to: recipientAddress as `0x${string}`,
+      to: effectiveRecipientAddress as `0x${string}`,
       value: parseUnits(amount.toString(), 18),
     });
   };
@@ -74,7 +80,7 @@ export function Donate({ selectedAddress }: DonateProps) {
 
       <div className="rounded-xl">
         <div className="flex flex-row items-center justify-center gap-2">
-          <LuksoProfile address={recipientAddress} />
+          <LuksoProfile address={effectiveRecipientAddress} />
         </div>
       </div>
 
