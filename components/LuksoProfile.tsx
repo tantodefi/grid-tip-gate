@@ -127,12 +127,12 @@ export function LuksoProfile({ address: _, hasAccess = false }: LuksoProfileProp
             <p className="text-lg mb-4">Thank you for your support! Here's your exclusive content:</p>
             <div className="prose">
                 <h3 className="text-xl font-semibold mb-2">Special Access Content</h3>
-                <p>This is some exclusive content that only appears after a successful donation. Your access has been granted!</p>
-                <p>Be early to <a href="https://basedup.world/">🔵basedup.world</a></p>
+                <p>Be early to <a href="https://basedup.world/" className="text-blue-500">basedup.world 🔵</a></p>
                 <ul className="list-disc pl-5 mt-2">
-                    <li>Premium feature 1</li>
-                    <li>Exclusive content 2</li>
-                    <li>Special access 3</li>
+                    <li>web3 events map</li>
+                    <li>list items for sale</li>
+                    <li>geoNFTs</li>
+                    <li>smartwallet</li>
                 </ul>
             </div>
         </div>
