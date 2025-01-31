@@ -18,7 +18,7 @@
 
 import { createClientUPProvider } from "@lukso/up-provider";
 import { createWalletClient, custom } from "viem";
-import { luksoTestnet } from "viem/chains";
+import { lukso } from "viem/chains"; // import and change to luksoTestnet if desired
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 
 interface UpProviderContext {
@@ -55,7 +55,7 @@ export function UpProvider({ children }: UpProviderProps) {
   const [client] = useState(() =>
     typeof window !== "undefined" && provider
       ? createWalletClient({
-          chain: luksoTestnet,
+          chain: lukso, // change to luksoTestnet if desired
           transport: custom(provider),
         })
       : null

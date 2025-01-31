@@ -130,6 +130,7 @@ export function LuksoProfile({ address = DEFAULT_ADDRESS }: LuksoProfileProps) {
             <div className="prose">
                 <h3 className="text-xl font-semibold mb-2">Special Access Content</h3>
                 <p>This is some exclusive content that only appears after a successful donation. Your access has been granted!</p>
+                <p>Be early to <a href="https://basedup.world/">🔵basedup.world</a></p>
                 <ul className="list-disc pl-5 mt-2">
                     <li>Premium feature 1</li>
                     <li>Exclusive content 2</li>
