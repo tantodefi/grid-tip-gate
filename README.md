@@ -20,7 +20,7 @@ A simple tip gate for any kind of content.
 
 Now we're in a nextjs app. First thing your going to want to do is change the `DEFAULT_ADDRESS` in the `components/LuksoProfile.tsx` file to your own address - this is the address that will receive the tips. You can also set the `MINIMUM_DONATION` to your desired minimum donation amount.
 
-Then in the `LuksoProfile.tsx` file you can fins this function:
+Then in the `LuksoProfile.tsx` file you can find this function:
 
 ```
  const ProtectedContent = () => (
