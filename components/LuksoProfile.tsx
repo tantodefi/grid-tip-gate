@@ -32,14 +32,14 @@ declare global {
 // Constants for the IPFS gateway and RPC endpoint for the LUKSO mainnet
 const IPFS_GATEWAY = 'https://api.universalprofile.cloud/ipfs/';
 const RPC_ENDPOINT = 'https://lukso.rpc.thirdweb.com';
-const DEFAULT_ADDRESS = '0x8008D993631C94B5CE00e102D9a55C9d0eb099cB';
+const DEFAULT_ADDRESS = '0x8008D993631C94B5CE00e102D9a55C9d0eb099cB'; //set the address for tip recipient
 const MINIMUM_DONATION = 0.42;
 
 interface LuksoProfileProps {
     address?: string;
 }
 
-export function LuksoProfile({ address = DEFAULT_ADDRESS }: LuksoProfileProps) {
+export function LuksoProfile({ address: _ }: LuksoProfileProps) {
     const [hasAccess] = useState(false);
     const [walletAddress, setWalletAddress] = useState<string | null>(null);
     const { setIsSearching, isSearching } = useUpProvider();
@@ -62,8 +62,6 @@ export function LuksoProfile({ address = DEFAULT_ADDRESS }: LuksoProfileProps) {
 
     useEffect(() => {
         async function fetchProfileImage() {
-            if (!address) return;
-
             setProfileData(prev => ({ ...prev, isLoading: true }));
 
             try {
@@ -74,7 +72,7 @@ export function LuksoProfile({ address = DEFAULT_ADDRESS }: LuksoProfileProps) {
                     timeout: 30000 // 30 seconds timeout
                 };
                 
-                const provider = new ERC725(erc725schema, address, RPC_ENDPOINT, config);
+                const provider = new ERC725(erc725schema, DEFAULT_ADDRESS, RPC_ENDPOINT, config);
                 console.log('Provider initialized, fetching profile data...');
                 
                 const fetchedData = await provider.fetchData('LSP3Profile');
@@ -97,7 +95,7 @@ export function LuksoProfile({ address = DEFAULT_ADDRESS }: LuksoProfileProps) {
                         background: profileBackground?.[0]?.url
                             ? profileBackground[0].url.replace('ipfs://', IPFS_GATEWAY)
                             : '',
-                        profileAddress: address,
+                        profileAddress: DEFAULT_ADDRESS,
                         isLoading: false,
                     });
                 }
@@ -105,19 +103,19 @@ export function LuksoProfile({ address = DEFAULT_ADDRESS }: LuksoProfileProps) {
                 console.error('Detailed error fetching profile:', {
                     message: error.message,
                     endpoint: RPC_ENDPOINT,
-                    address: address
+                    address: DEFAULT_ADDRESS
                 });
                 setProfileData(prev => ({
                     ...prev,
                     fullName: 'Error loading profile',
-                    profileAddress: address,
+                    profileAddress: DEFAULT_ADDRESS,
                     isLoading: false,
                 }));
             }
         }
 
         fetchProfileImage();
-    }, [address]);
+    }, []);
 
     
 
