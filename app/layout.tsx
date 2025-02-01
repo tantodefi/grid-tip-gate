@@ -2,7 +2,6 @@
 
 import '@/styles/globals.scss';
 import { Inter } from "next/font/google";
-import "./globals.css";
 import { useState } from 'react';
 import { SwapModal } from '@/components/SwapModal';
 
