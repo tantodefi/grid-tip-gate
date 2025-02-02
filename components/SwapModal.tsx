@@ -3,9 +3,10 @@ import { useState } from 'react';
 interface SwapModalProps {
     isOpen: boolean;
     onClose: () => void;
+    rocketXApiKey?: string;
 }
 
-export function SwapModal({ isOpen, onClose }: SwapModalProps) {
+export function SwapModal({ isOpen, onClose, rocketXApiKey = 'ef2a9aef-8286-47c1-9067-9098e542232a' }: SwapModalProps) {
     if (!isOpen) return null;
 
     return (
@@ -26,7 +27,7 @@ export function SwapModal({ isOpen, onClose }: SwapModalProps) {
                     <iframe 
                         height="100%" 
                         width="100%" 
-                        src="https://widget.rocketx.exchange/swap/ETHEREUM.ethereum/LUKSO.lukso-token-2/1?rx_p=1&rx_t=dark&rx_p_c=ECF335&rx_k=ef2a9aef-8286-47c1-9067-9098e542232a"
+                        src={`https://widget.rocketx.exchange/swap/ETHEREUM.ethereum/LUKSO.lukso-token-2/1?rx_p=1&rx_t=dark&rx_p_c=ECF335&rx_k=${rocketXApiKey}`}
                         className="w-full h-full"
                     />
                 </div>

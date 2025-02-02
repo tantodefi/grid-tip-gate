@@ -25,6 +25,7 @@ import { useUpProvider } from './upProvider';
 import { LuksoProfile } from './LuksoProfile';
 import { ERC725 } from '@erc725/erc725.js';
 import erc725schema from '@erc725/erc725.js/schemas/LSP3ProfileMetadata.json';
+import { SwapModal } from './SwapModal';
 
 const minAmount = 0.42;
 const maxAmount = 1000;
@@ -63,6 +64,7 @@ export function Donate({ selectedAddress }: DonateProps) {
   const [whitelistedUsers, setWhitelistedUsers] = useState<WhitelistedUser[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [hasAccess, setHasAccess] = useState(false);
+  const [showSwapModal, setShowSwapModal] = useState(false);
 
   useEffect(() => {
     setRecipientAddress(selectedAddress);
@@ -183,6 +185,12 @@ export function Donate({ selectedAddress }: DonateProps) {
           {isProcessing ? "Processing..." : `Donate ${amount} LYX`}
         </lukso-button>
       </div>
+
+      {/* Swap Modal */}
+      <SwapModal 
+        isOpen={showSwapModal} 
+        onClose={() => setShowSwapModal(false)}
+      />
 
       {/* Whitelisted Users Section */}
       {whitelistedUsers.length > 0 && (
