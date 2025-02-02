@@ -112,7 +112,6 @@ export function ProfileSearch({ onSelectAddress }: SearchProps) {
       onSelectAddress(address);
       setShowDropdown(false);
       setQuery('');
-      setIsSearching(false);
     } catch (error) {
       console.error('Invalid address:', error);
     }
@@ -120,9 +119,15 @@ export function ProfileSearch({ onSelectAddress }: SearchProps) {
 
   const getProfileImage = (profile: Profile) => {
     if (profile.profileImages && profile.profileImages.length > 0) {
+      const imageUrl = profile.profileImages[0].url || profile.profileImages[0].src;
+      // Handle IPFS URLs
+      const finalUrl = imageUrl.startsWith('ipfs://')
+        ? `https://api.universalprofile.cloud/ipfs/${imageUrl.slice(7)}`
+        : imageUrl;
+
       return (
         <Image
-          src={profile.profileImages[0].src}
+          src={finalUrl}
           alt={`${profile.name || profile.id} avatar`}
           width={40}
           height={40}
