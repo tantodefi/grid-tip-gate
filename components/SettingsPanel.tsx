@@ -46,7 +46,7 @@ export function SettingsPanel({
         if (tempApiKey !== currentApiKey) {
             onApiKeyChange(tempApiKey);
         }
-        if (tempAddress !== currentAddress) {
+        if (tempAddress !== currentAddress && tempAddress !== null) {
             onAddressSelect(tempAddress);
         }
         setShowSuccess(true);
