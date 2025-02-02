@@ -146,88 +146,48 @@ export function ProfileSearch({ onSelectAddress }: SearchProps) {
     );
   };
 
-  const handleInput = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      handleSearch(e.target.value);
-    },
-    [handleSearch]
-  );
-
   return (
-    <div className="w-full md:p-8 backdrop-blur-md rounded-2xl">
-      {/* Header Section */}
-      <div className="flex flex-col space-y-2">
-        <div className="flex justify-between items-center">
-          <h2 className="md:text-l font-bold text-gray-900">
-            Search Profile
-          </h2>
-          <lukso-button
-            onClick={() => setIsSearching(false)}
-            variant="primary"
-            size="small"
-            isFullWidth={true}
-          >
-            Back
-          </lukso-button>
-        </div>
-
-        {/* Search Input Section */}
-        <div className="space-y-2">
-          <div className="relative">
-            <lukso-input
-              id="search"
-              type="text"
-              value={query}
-              onInput={handleInput}
-              onKeyDown={handleKeyPress}
-              placeholder="Enter 3 characters to search..."
-              is-full-width
-              is-disabled={loading}
-            />
+    <div className="w-full">
+      <div className="relative">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => handleSearch(e.target.value)}
+          onKeyDown={handleKeyPress}
+          placeholder="Enter 3 characters to search..."
+          className="w-full p-2 border border-gray-300 rounded-md"
+          disabled={loading}
+        />
+        {loading && (
+          <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+            <div className="animate-spin rounded-full h-4 w-4 border-2 border-gray-500 border-t-transparent"></div>
           </div>
-
-          {showDropdown && results.length > 0 && (
-            <div className="bg-white border border-gray-200 rounded-xl shadow-lg z-10 max-w-[300px] max-h-[180px] overflow-y-auto">
-              {results.map((result) => (
-                <button
-                  key={result.id}
-                  className="w-full px-2 py-4 text-left hover:bg-gray-100 flex items-start gap-4 border-b border-gray-100 last:border-0 transition-colors"
-                  onClick={() => handleSelectProfile(result)}
-                >
-                  {getProfileImage(result)}
-                  <div className="flex-1 min-w-0">
-                    {result.fullName && (
-                      <div className="text-sm text-gray-600 truncate mt-0.5">
-                        <lukso-username 
-                          name={result.fullName} 
-                          max-width="200" 
-                          size="large" 
-                          slice-by="8" 
-                          address-color="" 
-                          name-color="" 
-                          custom-class="" 
-                          prefix="@"
-                        ></lukso-username>
-                      </div>
-                    )}
-                    <lukso-username 
-                      name="" 
-                      address={result.id} 
-                      max-width="200" 
-                      size="large" 
-                      slice-by="8" 
-                      address-color="" 
-                      name-color="" 
-                      custom-class="" 
-                      prefix="@">
-                    </lukso-username>
-                  </div>
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+        )}
       </div>
+
+      {showDropdown && results.length > 0 && (
+        <div className="mt-2 bg-white border border-gray-200 rounded-xl shadow-lg z-10 max-h-[180px] overflow-y-auto">
+          {results.map((result) => (
+            <button
+              key={result.id}
+              className="w-full px-2 py-4 text-left hover:bg-gray-100 flex items-start gap-4 border-b border-gray-100 last:border-0 transition-colors"
+              onClick={() => handleSelectProfile(result)}
+            >
+              {getProfileImage(result)}
+              <div className="flex-1 min-w-0">
+                {result.fullName && (
+                  <div className="text-sm text-gray-600 truncate mt-0.5">
+                    {result.fullName}
+                  </div>
+                )}
+                <div className="text-sm text-gray-500 truncate">
+                  {result.id}
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
