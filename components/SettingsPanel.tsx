@@ -1,5 +1,6 @@
 import { ProfileSearch } from './ProfileSearch';
 import { useState, useEffect } from 'react';
+import { LuksoProfile } from './LuksoProfile';
 
 interface SettingsPanelProps {
     isOpen: boolean;
@@ -60,32 +61,67 @@ export function SettingsPanel({
         setTempAddress(address);
     };
 
+    const handleClearAddress = () => {
+        setTempAddress(null);
+    };
+
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
             <div className="relative w-full h-full max-w-4xl mx-auto flex flex-col">
                 <div className="bg-white rounded-lg shadow-xl overflow-hidden h-full">
-                    <button 
-                        onClick={onClose}
-                        className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 transition-colors"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
+                    <div className="flex justify-between items-center p-4 border-b">
+                        <h2 className="text-xl font-semibold">Settings</h2>
+                        <button 
+                            onClick={onClose}
+                            className="text-gray-600 hover:text-gray-800 transition-colors"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
 
                     <div className="p-6 space-y-6">
                         <div>
-                            <h3 className="text-lg font-semibold mb-2">Profile Search</h3>
+                            <h3 className="text-lg font-semibold mb-2">Default Profile</h3>
                             <ProfileSearch onSelectAddress={handleAddressSelect} />
                             {tempAddress && tempAddress !== currentAddress && (
-                                <p className="mt-2 text-sm text-green-600">
-                                    ✓ New profile selected
-                                </p>
+                                <div className="mt-4 p-4 bg-green-50 rounded-lg">
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center gap-3">
+                                            <div className="text-green-600">
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            </div>
+                                            <span className="text-sm text-green-600">New profile selected</span>
+                                        </div>
+                                        <button
+                                            onClick={handleClearAddress}
+                                            className="text-gray-500 hover:text-gray-700 text-sm"
+                                        >
+                                            Clear
+                                        </button>
+                                    </div>
+                                    <div className="mt-3">
+                                        <LuksoProfile address={tempAddress} />
+                                    </div>
+                                </div>
                             )}
                         </div>
 
                         <div>
-                            <h3 className="text-lg font-semibold mb-2">RocketX API Key</h3>
+                            <div className="flex items-center gap-2 mb-2">
+                                <h3 className="text-lg font-semibold">RocketX API Key</h3>
+                                <a 
+                                    href="https://app.rocketx.exchange/partner" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="text-blue-600 hover:text-blue-800 text-sm"
+                                >
+                                    Get API key here
+                                </a>
+                            </div>
                             <input
                                 type="text"
                                 placeholder="Enter your RocketX API key"
