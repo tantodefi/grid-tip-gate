@@ -124,17 +124,8 @@ export function LuksoProfile({ address: _, hasAccess = false }: LuksoProfileProp
     const ProtectedContent = () => (
         <div className="mt-8 p-6 bg-white rounded-lg shadow-lg max-w-2xl">
             <h2 className="text-2xl font-bold mb-4">🎉 Protected Content Unlocked!</h2>
-            <p className="text-lg mb-4">Thank you for your support! Here's your exclusive content:</p>
-            <div className="prose">
-                <h3 className="text-xl font-semibold mb-2">Special Access Content</h3>
-                <p>Be early to <a href="https://basedup.world/" className="text-blue-500">basedup.world 🔵</a></p>
-                <ul className="list-disc pl-5 mt-2">
-                    <li>web3 events map</li>
-                    <li>list items for sale</li>
-                    <li>geoNFTs</li>
-                    <li>smartwallet</li>
-                </ul>
-            </div>
+            <p className="text-lg mb-4">Thank you for your support! Be early to <a href="https://basedup.world/" className="text-blue-500">basedup.world 🔵</a></p>
+            <iframe src="https://tokenterminal.com/explorer/" className="w-full h-96"></iframe>
         </div>
     );
 
