@@ -7,6 +7,7 @@ import { SwapModal } from '@/components/SwapModal';
 import { SettingsPanel } from '@/components/SettingsPanel';
 import { UpProvider, useUpProvider } from '@/components/upProvider';
 import { DM3Wrapper } from '@/components/DM3Wrapper';
+import { XMTPChat } from '@/components/XMTPChat';
 import { WagmiConfig, createConfig, configureChains } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
 import { Chain } from 'wagmi/chains';
@@ -49,6 +50,7 @@ function AppContent({ children }: { children: React.ReactNode }) {
   const [isSwapModalOpen, setIsSwapModalOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showMessenger, setShowMessenger] = useState(false);
+  const [showXMTPChat, setShowXMTPChat] = useState(false);
   const [rocketXApiKey, setRocketXApiKey] = useState('ef2a9aef-8286-47c1-9067-9098e542232a');
   const { selectedAddress, setSelectedAddress } = useUpProvider();
 
@@ -56,6 +58,28 @@ function AppContent({ children }: { children: React.ReactNode }) {
     <>
       {/* Top Right Buttons */}
       <div className="fixed top-4 right-4 z-40 flex gap-2">
+        {/* XMTP Chat Button */}
+        <button
+          onClick={() => setShowXMTPChat(true)}
+          className="bg-white/80 backdrop-blur-sm hover:bg-white/90 transition-colors rounded-full p-3 shadow-lg"
+          aria-label="Open XMTP Chat"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+            />
+          </svg>
+        </button>
+
         {/* Message Button */}
         <button
           onClick={() => setShowMessenger(true)}
@@ -128,6 +152,12 @@ function AppContent({ children }: { children: React.ReactNode }) {
           </svg>
         </button>
       </div>
+
+      {/* XMTP Chat */}
+      <XMTPChat
+        isOpen={showXMTPChat}
+        onClose={() => setShowXMTPChat(false)}
+      />
 
       {/* DM3 Messenger */}
       <DM3Wrapper 
